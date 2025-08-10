@@ -11,7 +11,6 @@ export class AdMobService {
     banner: 'ca-app-pub-2211398170597117/7902625805', // Your banner ad unit ID
     interstitial: 'ca-app-pub-2211398170597117/2143016750', // Your interstitial ad unit ID
     rewarded: 'ca-app-pub-3940256099942544/5224354917', // Using test ID as you didn't provide rewarded ID
-    appOpen: 'ca-app-pub-2211398170597117/3124925937' // Your app open ad unit ID
   };
 
   private constructor() {}
@@ -105,23 +104,6 @@ export class AdMobService {
     } catch (error) {
       console.error('Failed to show rewarded ad:', error);
       return false;
-    }
-  }
-
-  async showAppOpenAd(): Promise<void> {
-    if (!this.isInitialized || !Capacitor.isNativePlatform()) return;
-
-    const options = {
-      adId: this.AD_UNITS.appOpen,
-      isTesting: false // Live ads enabled
-    };
-
-    try {
-      await AdMob.prepareAppOpen(options);
-      await AdMob.showAppOpen();
-      console.log('Live app open ad shown');
-    } catch (error) {
-      console.error('Failed to show app open ad:', error);
     }
   }
 }

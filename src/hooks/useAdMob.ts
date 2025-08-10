@@ -63,22 +63,11 @@ export const useAdMob = () => {
     return false;
   };
 
-  const showAppOpenAd = async () => {
-    if (isAdMobReady) {
-      try {
-        await adMobService.showAppOpenAd();
-      } catch (error) {
-        console.error('Error showing app open ad:', error);
-      }
-    }
-  };
-
   return {
     isAdMobReady,
     showBannerAd,
     hideBannerAd,
     showInterstitialAd,
-    showRewardedAd,
-    showAppOpenAd
+    showRewardedAd
   };
 };
