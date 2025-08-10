@@ -12,8 +12,8 @@ const config: CapacitorConfig = {
   plugins: {
     AdMob: {
       applicationId: 'ca-app-pub-2211398170597117~3118839468', // Your real AdMob App ID
-      testingDevices: [], // No test devices for production
-      initializeForTesting: false // Live ads enabled
+      testingDevices: ['YOUR_DEVICE_ID'], // Add your device ID for testing
+      initializeForTesting: true // Enable test mode to prevent crashes
     }
   }
 };

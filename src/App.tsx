@@ -4,17 +4,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useAdMob } from "@/hooks/useAdMob";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const { isAdMobReady } = useAdMob();
-  
-  console.log('AdMob ready status:', isAdMobReady);
-
   return (
     <BrowserRouter>
       <Routes>

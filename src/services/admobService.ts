@@ -5,12 +5,13 @@ import { Capacitor } from '@capacitor/core';
 export class AdMobService {
   private static instance: AdMobService;
   private isInitialized = false;
+  private isInitializing = false;
 
-  // Your real AdMob ad unit IDs
+  // Using Google test ad unit IDs for development to prevent crashes
   private readonly AD_UNITS = {
-    banner: 'ca-app-pub-2211398170597117/7902625805', // Your banner ad unit ID
-    interstitial: 'ca-app-pub-2211398170597117/2143016750', // Your interstitial ad unit ID
-    rewarded: 'ca-app-pub-3940256099942544/5224354917', // Using test ID as you didn't provide rewarded ID
+    banner: 'ca-app-pub-3940256099942544/6300978111', // Google test banner ad unit ID
+    interstitial: 'ca-app-pub-3940256099942544/1033173712', // Google test interstitial ad unit ID
+    rewarded: 'ca-app-pub-3940256099942544/5224354917', // Google test rewarded ad unit ID
   };
 
   private constructor() {}
@@ -23,20 +24,30 @@ export class AdMobService {
   }
 
   async initialize(): Promise<void> {
+    // Guard against multiple initializations
+    if (this.isInitialized || this.isInitializing) {
+      console.log('AdMob: Already initialized or initializing');
+      return;
+    }
+
     if (!Capacitor.isNativePlatform()) {
       console.log('AdMob: Running on web, ads disabled');
       return;
     }
 
+    this.isInitializing = true;
+
     try {
       await AdMob.initialize({
-        testingDevices: [], // No test devices for production
-        initializeForTesting: false // Live ads enabled
+        testingDevices: ['YOUR_DEVICE_ID'], // Add your device ID here
+        initializeForTesting: true // Use test mode for development
       });
       this.isInitialized = true;
-      console.log('AdMob initialized successfully for live ads');
+      this.isInitializing = false;
+      console.log('AdMob initialized successfully in test mode');
     } catch (error) {
       console.error('AdMob initialization failed:', error);
+      this.isInitializing = false;
       // Don't throw error to prevent app crash
     }
   }
@@ -49,12 +60,12 @@ export class AdMobService {
       adSize: BannerAdSize.BANNER,
       position: position,
       margin: 0,
-      isTesting: false // Live ads enabled
+      isTesting: true // Use test ads for development
     };
 
     try {
       await AdMob.showBanner(options);
-      console.log('Live banner ad shown');
+      console.log('Test banner ad shown');
     } catch (error) {
       console.error('Failed to show banner ad:', error);
     }
@@ -76,13 +87,13 @@ export class AdMobService {
 
     const options = {
       adId: this.AD_UNITS.interstitial,
-      isTesting: false // Live ads enabled
+      isTesting: true // Use test ads for development
     };
 
     try {
       await AdMob.prepareInterstitial(options);
       await AdMob.showInterstitial();
-      console.log('Live interstitial ad shown');
+      console.log('Test interstitial ad shown');
     } catch (error) {
       console.error('Failed to show interstitial ad:', error);
     }
@@ -93,13 +104,13 @@ export class AdMobService {
 
     const options: RewardAdOptions = {
       adId: this.AD_UNITS.rewarded,
-      isTesting: true // Using test for rewarded as you didn't provide rewarded ID
+      isTesting: true // Use test ads for development
     };
 
     try {
       await AdMob.prepareRewardVideoAd(options);
       const result = await AdMob.showRewardVideoAd();
-      console.log('Rewarded ad result:', result);
+      console.log('Test rewarded ad result:', result);
       return result && Object.keys(result).length > 0;
     } catch (error) {
       console.error('Failed to show rewarded ad:', error);
