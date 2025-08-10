@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { TrendingUp, Building, Filter } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import { useAdMob } from "@/hooks/useAdMob";
 
 const mockBanks = [
   { name: "SBI", rate: 8.50, processing: 0.25, type: "Public" },
@@ -25,6 +25,8 @@ const CompareScreen = () => {
   const [filterType, setFilterType] = useState("all");
   const [showResults, setShowResults] = useState(false);
 
+  const { showBannerAd, isAdMobReady } = useAdMob();
+
   const filteredBanks = mockBanks
     .filter(bank => filterType === "all" || bank.type.toLowerCase() === filterType)
     .sort((a, b) => a.rate - b.rate);
@@ -35,9 +37,16 @@ const CompareScreen = () => {
     return Math.round(emi);
   };
 
-  const handleCompare = () => {
+  const handleCompare = async () => {
     if (loanAmount && tenure) {
       setShowResults(true);
+      
+      // Show banner ad after comparison
+      if (isAdMobReady) {
+        setTimeout(() => {
+          showBannerAd();
+        }, 1000);
+      }
     }
   };
 
