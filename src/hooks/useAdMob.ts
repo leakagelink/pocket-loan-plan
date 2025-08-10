@@ -11,8 +11,11 @@ export const useAdMob = () => {
       try {
         await adMobService.initialize();
         setIsAdMobReady(true);
+        console.log('AdMob initialization completed successfully');
       } catch (error) {
         console.error('Failed to initialize AdMob:', error);
+        // Don't throw error, just log it and continue
+        setIsAdMobReady(false);
       }
     };
 
@@ -21,25 +24,42 @@ export const useAdMob = () => {
 
   const showBannerAd = async (position?: BannerAdPosition) => {
     if (isAdMobReady) {
-      await adMobService.showBannerAd(position);
+      try {
+        await adMobService.showBannerAd(position);
+      } catch (error) {
+        console.error('Error showing banner ad:', error);
+      }
     }
   };
 
   const hideBannerAd = async () => {
     if (isAdMobReady) {
-      await adMobService.hideBannerAd();
+      try {
+        await adMobService.hideBannerAd();
+      } catch (error) {
+        console.error('Error hiding banner ad:', error);
+      }
     }
   };
 
   const showInterstitialAd = async () => {
     if (isAdMobReady) {
-      await adMobService.showInterstitialAd();
+      try {
+        await adMobService.showInterstitialAd();
+      } catch (error) {
+        console.error('Error showing interstitial ad:', error);
+      }
     }
   };
 
   const showRewardedAd = async (): Promise<boolean> => {
     if (isAdMobReady) {
-      return await adMobService.showRewardedAd();
+      try {
+        return await adMobService.showRewardedAd();
+      } catch (error) {
+        console.error('Error showing rewarded ad:', error);
+        return false;
+      }
     }
     return false;
   };
