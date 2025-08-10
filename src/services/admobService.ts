@@ -1,5 +1,6 @@
 
-import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, InterstitialAdPluginOptions, RewardAdOptions } from '@capacitor-community/admob';
+
+import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, RewardAdOptions } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
 
 export class AdMobService {
@@ -73,7 +74,7 @@ export class AdMobService {
   async showInterstitialAd(): Promise<void> {
     if (!this.isInitialized || !Capacitor.isNativePlatform()) return;
 
-    const options: InterstitialAdPluginOptions = {
+    const options = {
       adId: this.AD_UNITS.interstitial,
       isTesting: true
     };
@@ -99,7 +100,7 @@ export class AdMobService {
       await AdMob.prepareRewardVideoAd(options);
       const result = await AdMob.showRewardVideoAd();
       console.log('Rewarded ad result:', result);
-      return result.rewarded;
+      return result.reward !== undefined;
     } catch (error) {
       console.error('Failed to show rewarded ad:', error);
       return false;
@@ -108,3 +109,4 @@ export class AdMobService {
 }
 
 export const adMobService = AdMobService.getInstance();
+
