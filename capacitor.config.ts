@@ -2,7 +2,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.74caa527f28248c49652d5960c931443',
+  appId: 'com.smartloanadvisor.com',
   appName: 'SmartLoan Advisor',
   webDir: 'dist',
   server: {
