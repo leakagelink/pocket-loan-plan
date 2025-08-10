@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { AlertTriangle, Shield, FileText } from "lucide-react";
+import { AlertTriangle, Shield, FileText, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -37,6 +37,23 @@ const ComplianceModal = () => {
         </DialogHeader>
         
         <div className="space-y-4">
+          {/* Primary Bank Affiliation Disclaimer */}
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+            <div className="flex items-start gap-2">
+              <Building className="text-red-600 mt-0.5 flex-shrink-0" size={16} />
+              <div>
+                <p className="text-sm text-red-800 font-medium mb-1">
+                  Not Affiliated with Banks
+                </p>
+                <p className="text-xs text-red-700 leading-relaxed">
+                  SmartLoan Advisor is not affiliated with any bank or financial institution. 
+                  This app is for educational and simulation purposes only. All results are 
+                  estimates and should not be considered financial advice.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
             <div className="flex items-start gap-2">
               <AlertTriangle className="text-orange-500 mt-0.5 flex-shrink-0" size={16} />
@@ -67,7 +84,11 @@ const ComplianceModal = () => {
             </div>
             <div className="flex items-start gap-2">
               <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-              <p>Actual loan terms may vary significantly from our simulations</p>
+              <p>We have no business relationships with mentioned banks</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+              <p>Banks are not responsible for our app content or calculations</p>
             </div>
             <div className="flex items-start gap-2">
               <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
@@ -84,7 +105,8 @@ const ComplianceModal = () => {
                 </p>
                 <p className="text-xs text-blue-700 leading-relaxed">
                   You must consult with qualified financial advisors and verify all information 
-                  independently before making any financial decisions.
+                  independently before making any financial decisions. All estimates should not 
+                  be considered financial advice.
                 </p>
               </div>
             </div>
