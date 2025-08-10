@@ -1,12 +1,42 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from "react";
+import BottomNavigation from "@/components/BottomNavigation";
+import HomeScreen from "@/components/screens/HomeScreen";
+import CalculatorScreen from "@/components/screens/CalculatorScreen";
+import CompareScreen from "@/components/screens/CompareScreen";
+import CreditScreen from "@/components/screens/CreditScreen";
+import LearnScreen from "@/components/screens/LearnScreen";
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
+  const handleNavigate = (screen: string) => {
+    setActiveTab(screen);
+  };
+
+  const renderScreen = () => {
+    switch (activeTab) {
+      case "home":
+        return <HomeScreen onNavigate={handleNavigate} />;
+      case "calculator":
+        return <CalculatorScreen />;
+      case "compare":
+        return <CompareScreen />;
+      case "credit":
+        return <CreditScreen />;
+      case "learn":
+        return <LearnScreen />;
+      default:
+        return <HomeScreen onNavigate={handleNavigate} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <main className="pb-16">
+        {renderScreen()}
+      </main>
+      <BottomNavigation activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
 };
