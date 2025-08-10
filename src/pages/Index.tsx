@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BottomNavigation from "@/components/BottomNavigation";
 import HeaderBar from "@/components/HeaderBar";
 import HomeScreen from "@/components/screens/HomeScreen";
@@ -8,11 +8,26 @@ import CompareScreen from "@/components/screens/CompareScreen";
 import CreditScreen from "@/components/screens/CreditScreen";
 import LearnScreen from "@/components/screens/LearnScreen";
 import ComplianceModal from "@/components/ComplianceModal";
+import { useAdMob } from "@/hooks/useAdMob";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
+  const { showBannerAd, showInterstitialAd, isAdMobReady } = useAdMob();
+
+  // Show banner ad when app loads
+  useEffect(() => {
+    if (isAdMobReady) {
+      setTimeout(() => {
+        showBannerAd();
+      }, 2000); // Show banner after 2 seconds
+    }
+  }, [isAdMobReady, showBannerAd]);
 
   const handleNavigate = (screen: string) => {
+    // Show interstitial ad when navigating to Compare screen
+    if (screen === "compare" && isAdMobReady) {
+      showInterstitialAd();
+    }
     setActiveTab(screen);
   };
 

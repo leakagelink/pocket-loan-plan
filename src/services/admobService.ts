@@ -6,12 +6,12 @@ export class AdMobService {
   private static instance: AdMobService;
   private isInitialized = false;
 
-  // Replace these with your real AdMob ad unit IDs
+  // Your real AdMob ad unit IDs
   private readonly AD_UNITS = {
-    banner: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX', // Your real banner ad unit ID
-    interstitial: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX', // Your real interstitial ad unit ID
-    rewarded: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX', // Your real rewarded ad unit ID
-    appOpen: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX' // Your real app open ad unit ID
+    banner: 'ca-app-pub-2211398170597117/7902625805', // Your banner ad unit ID
+    interstitial: 'ca-app-pub-2211398170597117/2143016750', // Your interstitial ad unit ID
+    rewarded: 'ca-app-pub-3940256099942544/5224354917', // Using test ID as you didn't provide rewarded ID
+    appOpen: 'ca-app-pub-2211398170597117/3124925937' // Your app open ad unit ID
   };
 
   private constructor() {}
@@ -32,7 +32,7 @@ export class AdMobService {
     try {
       await AdMob.initialize({
         testingDevices: [], // No test devices for production
-        initializeForTesting: false // Disable test mode for live ads
+        initializeForTesting: false // Live ads enabled
       });
       this.isInitialized = true;
       console.log('AdMob initialized successfully for live ads');
@@ -50,7 +50,7 @@ export class AdMobService {
       adSize: BannerAdSize.BANNER,
       position: position,
       margin: 0,
-      isTesting: false // Disable test ads for live ads
+      isTesting: false // Live ads enabled
     };
 
     try {
@@ -77,7 +77,7 @@ export class AdMobService {
 
     const options = {
       adId: this.AD_UNITS.interstitial,
-      isTesting: false // Disable test ads for live ads
+      isTesting: false // Live ads enabled
     };
 
     try {
@@ -94,17 +94,34 @@ export class AdMobService {
 
     const options: RewardAdOptions = {
       adId: this.AD_UNITS.rewarded,
-      isTesting: false // Disable test ads for live ads
+      isTesting: true // Using test for rewarded as you didn't provide rewarded ID
     };
 
     try {
       await AdMob.prepareRewardVideoAd(options);
       const result = await AdMob.showRewardVideoAd();
-      console.log('Live rewarded ad result:', result);
+      console.log('Rewarded ad result:', result);
       return result && Object.keys(result).length > 0;
     } catch (error) {
       console.error('Failed to show rewarded ad:', error);
       return false;
+    }
+  }
+
+  async showAppOpenAd(): Promise<void> {
+    if (!this.isInitialized || !Capacitor.isNativePlatform()) return;
+
+    const options = {
+      adId: this.AD_UNITS.appOpen,
+      isTesting: false // Live ads enabled
+    };
+
+    try {
+      await AdMob.prepareAppOpen(options);
+      await AdMob.showAppOpen();
+      console.log('Live app open ad shown');
+    } catch (error) {
+      console.error('Failed to show app open ad:', error);
     }
   }
 }

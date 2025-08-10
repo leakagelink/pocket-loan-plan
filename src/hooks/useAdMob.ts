@@ -14,7 +14,6 @@ export const useAdMob = () => {
         console.log('AdMob initialization completed successfully');
       } catch (error) {
         console.error('Failed to initialize AdMob:', error);
-        // Don't throw error, just log it and continue
         setIsAdMobReady(false);
       }
     };
@@ -64,11 +63,22 @@ export const useAdMob = () => {
     return false;
   };
 
+  const showAppOpenAd = async () => {
+    if (isAdMobReady) {
+      try {
+        await adMobService.showAppOpenAd();
+      } catch (error) {
+        console.error('Error showing app open ad:', error);
+      }
+    }
+  };
+
   return {
     isAdMobReady,
     showBannerAd,
     hideBannerAd,
     showInterstitialAd,
-    showRewardedAd
+    showRewardedAd,
+    showAppOpenAd
   };
 };
