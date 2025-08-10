@@ -11,9 +11,9 @@ const config: CapacitorConfig = {
   },
   plugins: {
     AdMob: {
-      applicationId: 'ca-app-pub-3940256099942544~3347511713', // Google's test app ID
-      testingDevices: ['YOUR_DEVICE_ID_HERE'], // Add your device ID for testing
-      initializeForTesting: true // Enable test mode
+      applicationId: 'ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX', // Replace with your real AdMob App ID
+      testingDevices: [], // Remove test device IDs for production
+      initializeForTesting: false // Disable test mode for live ads
     }
   }
 };
