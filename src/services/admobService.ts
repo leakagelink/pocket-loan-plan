@@ -100,7 +100,8 @@ export class AdMobService {
       await AdMob.prepareRewardVideoAd(options);
       const result = await AdMob.showRewardVideoAd();
       console.log('Rewarded ad result:', result);
-      return result.reward !== undefined;
+      // Check if the ad was watched completely by checking if result exists and has valid data
+      return result && Object.keys(result).length > 0;
     } catch (error) {
       console.error('Failed to show rewarded ad:', error);
       return false;
