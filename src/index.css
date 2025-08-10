@@ -77,17 +77,10 @@
   }
 }
 
-/* Safe area handling for mobile devices - Enhanced */
+/* Safe area handling for mobile devices */
 @supports (padding-top: env(safe-area-inset-top)) {
   .pt-safe-top {
-    padding-top: max(env(safe-area-inset-top), 20px);
-  }
-}
-
-/* Fallback for devices without safe area support */
-@supports not (padding-top: env(safe-area-inset-top)) {
-  .pt-safe-top {
-    padding-top: 20px;
+    padding-top: env(safe-area-inset-top);
   }
 }
 
@@ -112,10 +105,4 @@
 
 .animate-slide-in-right {
   animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Gradient card utility */
-.gradient-card {
-  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
-  color: hsl(var(--primary-foreground));
 }

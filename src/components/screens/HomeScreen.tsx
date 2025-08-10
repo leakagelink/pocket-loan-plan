@@ -40,8 +40,6 @@ const quickActions = [
 ];
 
 const HomeScreen = ({ onNavigate }: HomeScreenProps) => {
-  console.log('HomeScreen component rendering');
-  
   return (
     <div className="p-4 space-y-6 animate-fade-up">
       {/* Header */}
