@@ -11,12 +11,16 @@ import ComplianceModal from "@/components/ComplianceModal";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
+  
+  console.log('Index component rendering, activeTab:', activeTab);
 
   const handleNavigate = (screen: string) => {
+    console.log('Navigation requested to:', screen);
     setActiveTab(screen);
   };
 
   const renderScreen = () => {
+    console.log('Rendering screen for activeTab:', activeTab);
     switch (activeTab) {
       case "home":
         return <HomeScreen onNavigate={handleNavigate} />;
