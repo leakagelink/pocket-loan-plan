@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import BottomNavigation from "@/components/BottomNavigation";
+import HeaderBar from "@/components/HeaderBar";
 import HomeScreen from "@/components/screens/HomeScreen";
 import CalculatorScreen from "@/components/screens/CalculatorScreen";
 import CompareScreen from "@/components/screens/CompareScreen";
@@ -35,9 +36,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <ComplianceModal />
-      <main className="pb-16">
+      
+      {/* Header Bar */}
+      <HeaderBar activeTab={activeTab} onNavigate={handleNavigate} />
+      
+      {/* Main Content */}
+      <main className="pb-16 pt-0">
         {renderScreen()}
       </main>
+      
+      {/* Bottom Navigation */}
       <BottomNavigation activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
