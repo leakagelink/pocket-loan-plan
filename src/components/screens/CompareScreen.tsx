@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { TrendingUp, Building, Filter } from "lucide-react";
+import { TrendingUp, Building, Filter, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,10 +60,30 @@ const CompareScreen = () => {
 
       <DisclaimerBanner />
 
+      {/* Enhanced Bank Rate Disclaimer */}
+      <Card className="border-amber-200 bg-amber-50">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-2">
+            <AlertCircle className="text-amber-600 mt-0.5 flex-shrink-0" size={16} />
+            <div>
+              <p className="text-sm text-amber-800 font-medium mb-1">
+                Simulated Data - Not Current Rates
+              </p>
+              <p className="text-xs text-amber-700 leading-relaxed">
+                Bank rates shown here are for educational purposes only and may not reflect current market rates. 
+                Interest rates change frequently and vary based on credit profile, income, and bank policies. 
+                Please verify current rates directly with the respective banks before making any financial decisions.
+                Last updated: For simulation purposes only.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>Compare Loan Offers</CardTitle>
-          <CardDescription>Find the best loan rates from top banks</CardDescription>
+          <CardDescription>Educational comparison of simulated loan rates</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
@@ -114,7 +135,7 @@ const CompareScreen = () => {
         <div className="space-y-4">
           <h2 className="text-lg font-semibold flex items-center gap-2">
             <Building size={20} />
-            Best Rates for You
+            Simulated Rate Comparison
           </h2>
           
           {filteredBanks.map((bank, index) => {
@@ -130,25 +151,29 @@ const CompareScreen = () => {
                       <p className="text-sm text-muted-foreground">{bank.type} Bank</p>
                       {index === 0 && (
                         <span className="inline-block bg-success text-success-foreground text-xs px-2 py-1 rounded-full mt-1">
-                          Best Rate
+                          Best Simulated Rate
                         </span>
                       )}
                     </div>
                     <div className="text-right">
                       <p className="text-2xl font-bold text-primary">{bank.rate}%</p>
-                      <p className="text-sm text-muted-foreground">Interest Rate</p>
+                      <p className="text-sm text-muted-foreground">Simulated Rate</p>
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-border">
                     <div>
-                      <p className="text-sm text-muted-foreground">Monthly EMI</p>
+                      <p className="text-sm text-muted-foreground">Estimated EMI</p>
                       <p className="font-semibold">₹{emi.toLocaleString()}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Processing Fee</p>
+                      <p className="text-sm text-muted-foreground">Sample Processing Fee</p>
                       <p className="font-semibold">{bank.processing}%</p>
                     </div>
+                  </div>
+                  
+                  <div className="mt-3 p-2 bg-muted rounded text-xs text-muted-foreground">
+                    ⚠️ Rates are simulated for educational purposes. Verify current rates with {bank.name} directly.
                   </div>
                 </CardContent>
               </Card>

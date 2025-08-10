@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { Calculator, PieChart } from "lucide-react";
+import { Calculator, PieChart, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,10 +70,29 @@ const CalculatorScreen = () => {
 
       <DisclaimerBanner />
 
+      {/* Enhanced Calculator Disclaimer */}
+      <Card className="border-blue-200 bg-blue-50">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-2">
+            <AlertTriangle className="text-blue-600 mt-0.5 flex-shrink-0" size={16} />
+            <div>
+              <p className="text-sm text-blue-800 font-medium mb-1">
+                Estimate Only - Not a Loan Guarantee
+              </p>
+              <p className="text-xs text-blue-700 leading-relaxed">
+                These calculations are estimates based on the inputs provided. Actual loan terms, EMI amounts, 
+                and interest rates may vary significantly based on your credit score, income, employment history, 
+                and individual bank policies. Always consult with financial institutions for accurate loan terms.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>Loan Details</CardTitle>
-          <CardDescription>Enter your loan information to calculate EMI</CardDescription>
+          <CardDescription>Enter loan information for educational calculation</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -110,7 +130,7 @@ const CalculatorScreen = () => {
           </div>
 
           <Button onClick={calculateEMI} className="w-full">
-            Calculate EMI
+            Calculate Estimated EMI
           </Button>
         </CardContent>
       </Card>
@@ -121,27 +141,33 @@ const CalculatorScreen = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <PieChart size={20} />
-                EMI Results
+                Estimated Results
               </CardTitle>
+              <CardDescription>
+                These are educational estimates only - actual terms may vary
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 gap-4">
                 <div className="text-center p-4 bg-primary rounded-lg">
-                  <p className="text-primary-foreground text-sm">Monthly EMI</p>
+                  <p className="text-primary-foreground text-sm">Estimated Monthly EMI</p>
                   <p className="text-primary-foreground text-2xl font-bold">
                     ₹{result.emi.toLocaleString()}
+                  </p>
+                  <p className="text-primary-foreground text-xs mt-1 opacity-80">
+                    *Actual EMI may vary based on bank policies
                   </p>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center p-3 bg-muted rounded-lg">
-                    <p className="text-muted-foreground text-xs">Total Interest</p>
+                    <p className="text-muted-foreground text-xs">Estimated Total Interest</p>
                     <p className="text-foreground font-semibold">
                       ₹{result.totalInterest.toLocaleString()}
                     </p>
                   </div>
                   <div className="text-center p-3 bg-muted rounded-lg">
-                    <p className="text-muted-foreground text-xs">Total Amount</p>
+                    <p className="text-muted-foreground text-xs">Estimated Total Amount</p>
                     <p className="text-foreground font-semibold">
                       ₹{result.totalAmount.toLocaleString()}
                     </p>
@@ -154,6 +180,7 @@ const CalculatorScreen = () => {
           <Card>
             <CardHeader>
               <CardTitle>Principal vs Interest Breakdown</CardTitle>
+              <CardDescription>Educational visualization of loan composition</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={200}>

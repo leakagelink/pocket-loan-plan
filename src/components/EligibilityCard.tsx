@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Shield, Calculator } from "lucide-react";
+import { Shield, Calculator, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,10 +38,27 @@ const EligibilityCard = () => {
           Quick Eligibility Check
         </CardTitle>
         <CardDescription>
-          Get an estimate of your loan eligibility (simulation only)
+          Educational simulation of potential loan eligibility
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        {/* Enhanced Eligibility Disclaimer */}
+        <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+          <div className="flex items-start gap-2">
+            <AlertTriangle className="text-purple-600 mt-0.5 flex-shrink-0" size={14} />
+            <div>
+              <p className="text-xs text-purple-800 font-medium mb-1">
+                Simulation Only - Not Pre-Approval
+              </p>
+              <p className="text-xs text-purple-700 leading-relaxed">
+                This is an educational simulation. Actual loan eligibility depends on credit score, 
+                employment history, existing EMIs, bank policies, and document verification. 
+                Banks may have different eligibility criteria and income requirements.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="income">Monthly Income (₹)</Label>
@@ -83,16 +100,18 @@ const EligibilityCard = () => {
 
         <Button onClick={calculateEligibility} className="w-full">
           <Calculator className="mr-2" size={16} />
-          Check Eligibility
+          Check Simulated Eligibility
         </Button>
 
         {result && (
           <div className="p-4 bg-success/10 border border-success/20 rounded-lg text-center">
-            <p className="text-sm text-success-foreground mb-1">Estimated Eligibility</p>
+            <p className="text-sm text-success-foreground mb-1">Simulated Eligibility Estimate</p>
             <p className="text-2xl font-bold text-success">₹{result.toLocaleString()}</p>
-            <p className="text-xs text-muted-foreground mt-2">
-              *This is a simulation. Actual eligibility may vary based on bank policies and credit history.
-            </p>
+            <div className="text-xs text-muted-foreground mt-2 space-y-1">
+              <p>*This is an educational simulation only</p>
+              <p>*Actual eligibility requires credit checks, document verification, and bank approval</p>
+              <p>*Different banks have varying eligibility criteria and may offer different amounts</p>
+            </div>
           </div>
         )}
       </CardContent>

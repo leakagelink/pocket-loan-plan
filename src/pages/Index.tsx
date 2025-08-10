@@ -6,6 +6,7 @@ import CalculatorScreen from "@/components/screens/CalculatorScreen";
 import CompareScreen from "@/components/screens/CompareScreen";
 import CreditScreen from "@/components/screens/CreditScreen";
 import LearnScreen from "@/components/screens/LearnScreen";
+import ComplianceModal from "@/components/ComplianceModal";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -33,6 +34,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <ComplianceModal />
       <main className="pb-16">
         {renderScreen()}
       </main>
