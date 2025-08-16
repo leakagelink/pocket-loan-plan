@@ -8,26 +8,26 @@ import CompareScreen from "@/components/screens/CompareScreen";
 import CreditScreen from "@/components/screens/CreditScreen";
 import LearnScreen from "@/components/screens/LearnScreen";
 import ComplianceModal from "@/components/ComplianceModal";
-import { useAdMob } from "@/hooks/useAdMob";
+// import { useAdMob } from "@/hooks/useAdMob"; // AdMob disabled
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
-  const { showBannerAd, showInterstitialAd, isAdMobReady } = useAdMob();
+  // const { showBannerAd, showInterstitialAd, isAdMobReady } = useAdMob(); // AdMob disabled
 
-  // Show banner ad when app loads
-  useEffect(() => {
-    if (isAdMobReady) {
-      setTimeout(() => {
-        showBannerAd();
-      }, 2000); // Show banner after 2 seconds
-    }
-  }, [isAdMobReady, showBannerAd]);
+  // AdMob banner ad useEffect removed to prevent crashes
+  // useEffect(() => {
+  //   if (isAdMobReady) {
+  //     setTimeout(() => {
+  //       showBannerAd();
+  //     }, 2000);
+  //   }
+  // }, [isAdMobReady, showBannerAd]);
 
   const handleNavigate = (screen: string) => {
-    // Show interstitial ad when navigating to Compare screen
-    if (screen === "compare" && isAdMobReady) {
-      showInterstitialAd();
-    }
+    // AdMob interstitial ad code removed to prevent crashes
+    // if (screen === "compare" && isAdMobReady) {
+    //   showInterstitialAd();
+    // }
     setActiveTab(screen);
   };
 

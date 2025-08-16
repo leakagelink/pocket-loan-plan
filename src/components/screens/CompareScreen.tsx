@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
-import { useAdMob } from "@/hooks/useAdMob";
+// import { useAdMob } from "@/hooks/useAdMob"; // AdMob disabled
 
 const mockBanks = [
   { name: "SBI", rate: 8.50, processing: 0.25, type: "Public" },
@@ -26,7 +26,7 @@ const CompareScreen = () => {
   const [filterType, setFilterType] = useState("all");
   const [showResults, setShowResults] = useState(false);
 
-  const { showBannerAd, isAdMobReady } = useAdMob();
+  // const { showBannerAd, isAdMobReady } = useAdMob(); // AdMob disabled
 
   const filteredBanks = mockBanks
     .filter(bank => filterType === "all" || bank.type.toLowerCase() === filterType)
@@ -42,12 +42,12 @@ const CompareScreen = () => {
     if (loanAmount && tenure) {
       setShowResults(true);
       
-      // Show banner ad after comparison
-      if (isAdMobReady) {
-        setTimeout(() => {
-          showBannerAd();
-        }, 1000);
-      }
+      // AdMob banner ad code removed to prevent crashes
+      // if (isAdMobReady) {
+      //   setTimeout(() => {
+      //     showBannerAd();
+      //   }, 1000);
+      // }
     }
   };
 
