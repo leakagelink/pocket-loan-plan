@@ -1,70 +1,40 @@
 
 import { useEffect, useState } from 'react';
-import { adMobService } from '@/services/admobService';
-import { BannerAdPosition } from '@capacitor-community/admob';
+// import { adMobService } from '@/services/admobService'; // AdMob service disabled
+// import { BannerAdPosition } from '@capacitor-community/admob'; // AdMob disabled
 
 export const useAdMob = () => {
   const [isAdMobReady, setIsAdMobReady] = useState(false);
 
   useEffect(() => {
-    const initializeAdMob = async () => {
-      try {
-        await adMobService.initialize();
-        setIsAdMobReady(true);
-        console.log('AdMob initialization completed successfully');
-      } catch (error) {
-        console.error('Failed to initialize AdMob:', error);
-        setIsAdMobReady(false);
-      }
-    };
-
-    initializeAdMob();
+    // AdMob initialization completely disabled to prevent crashes
+    console.log('AdMob is disabled - no initialization will occur');
+    setIsAdMobReady(false);
   }, []);
 
-  const showBannerAd = async (position?: BannerAdPosition) => {
-    if (isAdMobReady) {
-      try {
-        await adMobService.showBannerAd(position);
-      } catch (error) {
-        console.error('Error showing banner ad:', error);
-      }
-    }
+  const showBannerAd = async () => {
+    // AdMob disabled - no banner ads will show
+    console.log('AdMob disabled - showBannerAd called but no action taken');
   };
 
   const hideBannerAd = async () => {
-    if (isAdMobReady) {
-      try {
-        await adMobService.hideBannerAd();
-      } catch (error) {
-        console.error('Error hiding banner ad:', error);
-      }
-    }
+    // AdMob disabled - no banner ads to hide
+    console.log('AdMob disabled - hideBannerAd called but no action taken');
   };
 
   const showInterstitialAd = async () => {
-    if (isAdMobReady) {
-      try {
-        await adMobService.showInterstitialAd();
-      } catch (error) {
-        console.error('Error showing interstitial ad:', error);
-      }
-    }
+    // AdMob disabled - no interstitial ads will show
+    console.log('AdMob disabled - showInterstitialAd called but no action taken');
   };
 
   const showRewardedAd = async (): Promise<boolean> => {
-    if (isAdMobReady) {
-      try {
-        return await adMobService.showRewardedAd();
-      } catch (error) {
-        console.error('Error showing rewarded ad:', error);
-        return false;
-      }
-    }
+    // AdMob disabled - no rewarded ads will show
+    console.log('AdMob disabled - showRewardedAd called but no action taken');
     return false;
   };
 
   return {
-    isAdMobReady,
+    isAdMobReady: false, // Always false to prevent any ad-related code execution
     showBannerAd,
     hideBannerAd,
     showInterstitialAd,

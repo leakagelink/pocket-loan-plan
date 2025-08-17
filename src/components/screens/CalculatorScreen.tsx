@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Calculator, PieChart, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 import { PieChart as RechartsPieChart, Cell, ResponsiveContainer, Tooltip, Pie } from "recharts";
-import { useAdMob } from "@/hooks/useAdMob";
 
 const CalculatorScreen = () => {
   const [loanAmount, setLoanAmount] = useState("");
@@ -18,8 +16,6 @@ const CalculatorScreen = () => {
     totalInterest: number;
     totalAmount: number;
   } | null>(null);
-
-  const { showBannerAd, showInterstitialAd, isAdMobReady } = useAdMob();
 
   const calculateEMI = async () => {
     const P = parseFloat(loanAmount);
@@ -37,20 +33,7 @@ const CalculatorScreen = () => {
         totalAmount: Math.round(totalAmount),
       });
 
-      // Show banner ad after calculation
-      if (isAdMobReady) {
-        await showBannerAd();
-        
-        // Show interstitial ad occasionally (every 3rd calculation)
-        const calculationCount = parseInt(localStorage.getItem('calculationCount') || '0') + 1;
-        localStorage.setItem('calculationCount', calculationCount.toString());
-        
-        if (calculationCount % 3 === 0) {
-          setTimeout(() => {
-            showInterstitialAd();
-          }, 2000); // Show after 2 seconds
-        }
-      }
+      console.log('EMI calculation completed successfully');
     }
   };
 
