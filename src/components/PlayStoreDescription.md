@@ -1,5 +1,4 @@
 
-
 # SmartLoan Advisor - Play Store Description
 
 ## App Title
@@ -53,7 +52,7 @@ SmartLoan Advisor is an educational and simulation tool designed to help users u
 - Local calculations - data stays on your device
 - No collection of personal financial information
 - Transparent privacy policy
-- AdMob integration for free access to educational content
+- Clean and safe educational environment
 
 **⚠️ LEGAL DISCLAIMERS:**
 - Educational tool only - not financial advice
@@ -81,9 +80,9 @@ SmartLoan Advisor is an educational and simulation tool designed to help users u
 - We are not affiliated with any financial institution
 
 **📱 TECHNICAL INFO:**
-- Works offline for calculations
+- Works completely offline for calculations
 - Minimal permissions required
-- Ad-supported for free access
+- Clean and educational interface
 - Regular updates with new educational content
 
 **Support & Contact:**
@@ -105,7 +104,6 @@ Finance (Educational)
 Everyone - Educational content
 
 ## Permissions Explanation
-- Internet: For displaying educational advertisements through AdMob
-- Network State: To check connectivity for ad loading
+- Internet: For basic app functionality and updates
+- Network State: To check connectivity for app updates
 - No sensitive permissions required - all calculations done locally
-

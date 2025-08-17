@@ -1,43 +1,16 @@
 
-import { useEffect, useState } from 'react';
-// import { adMobService } from '@/services/admobService'; // AdMob service disabled
-// import { BannerAdPosition } from '@capacitor-community/admob'; // AdMob disabled
-
+// AdMob completely disabled - hook returns safe defaults
 export const useAdMob = () => {
-  const [isAdMobReady, setIsAdMobReady] = useState(false);
-
-  useEffect(() => {
-    // AdMob initialization completely disabled to prevent crashes
-    console.log('AdMob is disabled - no initialization will occur');
-    setIsAdMobReady(false);
-  }, []);
-
-  const showBannerAd = async () => {
-    // AdMob disabled - no banner ads will show
-    console.log('AdMob disabled - showBannerAd called but no action taken');
-  };
-
-  const hideBannerAd = async () => {
-    // AdMob disabled - no banner ads to hide
-    console.log('AdMob disabled - hideBannerAd called but no action taken');
-  };
-
-  const showInterstitialAd = async () => {
-    // AdMob disabled - no interstitial ads will show
-    console.log('AdMob disabled - showInterstitialAd called but no action taken');
-  };
-
-  const showRewardedAd = async (): Promise<boolean> => {
-    // AdMob disabled - no rewarded ads will show
-    console.log('AdMob disabled - showRewardedAd called but no action taken');
-    return false;
-  };
+  console.log('AdMob completely disabled - useAdMob hook called but no functionality active');
 
   return {
-    isAdMobReady: false, // Always false to prevent any ad-related code execution
-    showBannerAd,
-    hideBannerAd,
-    showInterstitialAd,
-    showRewardedAd
+    isAdMobReady: false,
+    showBannerAd: () => console.log('AdMob disabled - no banner ads'),
+    hideBannerAd: () => console.log('AdMob disabled - no banner ads'),
+    showInterstitialAd: () => console.log('AdMob disabled - no interstitial ads'),
+    showRewardedAd: async (): Promise<boolean> => {
+      console.log('AdMob disabled - no rewarded ads');
+      return false;
+    }
   };
 };

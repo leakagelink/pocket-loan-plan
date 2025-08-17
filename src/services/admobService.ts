@@ -1,8 +1,5 @@
 
-// AdMob service completely disabled to prevent crashes
-// import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, RewardAdOptions } from '@capacitor-community/admob';
-// import { Capacitor } from '@capacitor/core';
-
+// AdMob service completely disabled and safe
 export class AdMobService {
   private static instance: AdMobService;
   private isInitialized = false;
@@ -17,24 +14,24 @@ export class AdMobService {
   }
 
   async initialize(): Promise<void> {
-    console.log('AdMob service disabled - no initialization will occur');
+    console.log('AdMob service completely disabled');
     this.isInitialized = false;
   }
 
   async showBannerAd(): Promise<void> {
-    console.log('AdMob service disabled - showBannerAd called but no action taken');
+    console.log('AdMob disabled - no banner ads');
   }
 
   async hideBannerAd(): Promise<void> {
-    console.log('AdMob service disabled - hideBannerAd called but no action taken');
+    console.log('AdMob disabled - no banner ads');
   }
 
   async showInterstitialAd(): Promise<void> {
-    console.log('AdMob service disabled - showInterstitialAd called but no action taken');
+    console.log('AdMob disabled - no interstitial ads');
   }
 
   async showRewardedAd(): Promise<boolean> {
-    console.log('AdMob service disabled - showRewardedAd called but no action taken');
+    console.log('AdMob disabled - no rewarded ads');
     return false;
   }
 }

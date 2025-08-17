@@ -8,13 +8,6 @@ const config: CapacitorConfig = {
   server: {
     url: 'https://74caa527-f282-48c4-9652-d5960c931443.lovableproject.com?forceHideBadge=true',
     cleartext: true
-  },
-  plugins: {
-    AdMob: {
-      applicationId: 'ca-app-pub-2211398170597117~3118839468', // Your real AdMob App ID
-      testingDevices: ['YOUR_DEVICE_ID'], // Add your device ID for testing
-      initializeForTesting: true // Enable test mode to prevent crashes
-    }
   }
 };
 

@@ -1,5 +1,5 @@
 
-import { Shield, Eye, Database, Smartphone, FileText, Mail } from "lucide-react";
+import { Shield, Eye, Database, FileText, Mail } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const PrivacyPolicy = () => {
@@ -53,41 +53,6 @@ const PrivacyPolicy = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Smartphone size={20} />
-            Advertising & AdMob Integration
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">
-            This app displays advertisements through Google AdMob to support free access to educational content. 
-            AdMob may collect and use data to show personalized ads. You can opt out of personalized 
-            advertising in your device settings.
-          </p>
-          
-          <div>
-            <h3 className="font-semibold mb-2">AdMob Data Collection:</h3>
-            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-              <li>Device identifiers (advertising ID) for ad serving</li>
-              <li>App interaction data for ad relevance</li>
-              <li>General demographic information (age range, interests)</li>
-              <li>Device information (OS version, device model)</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-2">Ad Personalization Control:</h3>
-            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-              <li>Android: Settings → Google → Ads → Opt out of Ads Personalization</li>
-              <li>iOS: Settings → Privacy → Apple Advertising → Limit Ad Tracking</li>
-              <li>You can reset your advertising ID at any time in device settings</li>
-            </ul>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
             <Database size={20} />
             Data Security & Storage
           </CardTitle>
@@ -121,19 +86,10 @@ const PrivacyPolicy = () => {
           <div>
             <h3 className="font-semibold mb-2">Services We Use:</h3>
             <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-              <li>Google AdMob - For displaying advertisements</li>
-              <li>Google Analytics - For app usage analytics (if applicable)</li>
               <li>Capacitor Framework - For app functionality</li>
+              <li>Local Analytics - For app usage insights</li>
             </ul>
           </div>
-          
-          <p className="text-sm text-muted-foreground">
-            These services have their own privacy policies. We recommend reviewing:
-          </p>
-          <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-            <li>Google Privacy Policy: https://policies.google.com/privacy</li>
-            <li>Google AdMob: https://support.google.com/admob/answer/6128543</li>
-          </ul>
         </CardContent>
       </Card>
 
@@ -151,7 +107,7 @@ const PrivacyPolicy = () => {
               <li>Access to information about data we collect</li>
               <li>Request deletion of any stored data</li>
               <li>Opt out of analytics data collection</li>
-              <li>Control ad personalization settings</li>
+              <li>Full control over your privacy settings</li>
             </ul>
           </div>
           
