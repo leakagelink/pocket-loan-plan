@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
-import { useAdMob } from "@/hooks/useAdMob";
 
 const mockBanks = [
   { name: "SBI", rate: 8.50, processing: 0.25, type: "Public" },
@@ -25,8 +24,6 @@ const CompareScreen = () => {
   const [filterType, setFilterType] = useState("all");
   const [showResults, setShowResults] = useState(false);
 
-  const { showInterstitialAd, isAdMobReady } = useAdMob();
-
   const filteredBanks = mockBanks
     .filter(bank => filterType === "all" || bank.type.toLowerCase() === filterType)
     .sort((a, b) => a.rate - b.rate);
@@ -40,13 +37,6 @@ const CompareScreen = () => {
   const handleCompare = async () => {
     if (loanAmount && tenure) {
       setShowResults(true);
-      
-      // Safe ad showing - only if ready
-      if (isAdMobReady) {
-        setTimeout(() => {
-          showInterstitialAd();
-        }, 2000);
-      }
     }
   };
 

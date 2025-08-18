@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BottomNavigation from "@/components/BottomNavigation";
 import HeaderBar from "@/components/HeaderBar";
 import HomeScreen from "@/components/screens/HomeScreen";
@@ -8,23 +8,13 @@ import CompareScreen from "@/components/screens/CompareScreen";
 import CreditScreen from "@/components/screens/CreditScreen";
 import LearnScreen from "@/components/screens/LearnScreen";
 import ComplianceModal from "@/components/ComplianceModal";
-import { useAdMob } from "@/hooks/useAdMob";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
-  const { showInterstitialAd, isAdMobReady } = useAdMob();
 
   const handleNavigate = (screen: string) => {
     // Always scroll to top when changing screens
     window.scrollTo(0, 0);
-    
-    // Safe ad showing for compare screen
-    if (screen === "compare" && isAdMobReady) {
-      setTimeout(() => {
-        showInterstitialAd();
-      }, 800);
-    }
-    
     setActiveTab(screen);
   };
 
