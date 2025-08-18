@@ -11,8 +11,8 @@ const config: CapacitorConfig = {
   },
   plugins: {
     AdMob: {
-      appId: 'ca-app-pub-2211398170597117~3118839468',
-      initializeForTesting: true
+      appId: 'ca-app-pub-2211398170597117~3118839468'
+      // Minimal config to prevent crashes
     }
   }
 };

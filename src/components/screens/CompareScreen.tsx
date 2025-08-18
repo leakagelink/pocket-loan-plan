@@ -42,11 +42,18 @@ const CompareScreen = () => {
     if (loanAmount && tenure) {
       setShowResults(true);
       
-      // Show interstitial ad after showing results
-      if (isAdMobReady) {
-        setTimeout(() => {
-          showInterstitialAd();
-        }, 3000); // Show ad 3 seconds after results are shown
+      // Safe ad showing with extra protection
+      try {
+        if (isAdMobReady) {
+          setTimeout(() => {
+            showInterstitialAd().catch(() => {
+              console.log('Compare screen ad failed safely');
+            });
+          }, 3000);
+        }
+      } catch (error) {
+        console.log('Compare ad trigger failed safely:', error);
+        // App continues normally
       }
     }
   };

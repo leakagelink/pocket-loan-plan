@@ -8,13 +8,20 @@ export const useAdMob = () => {
   useEffect(() => {
     const initializeAdMob = async () => {
       try {
-        console.log('useAdMob: Initializing AdMob service...');
-        await adMobService.initialize();
+        // Safe initialization with timeout
+        const initPromise = adMobService.initialize();
+        const timeoutPromise = new Promise((resolve) => 
+          setTimeout(() => resolve(null), 5000)
+        );
+
+        await Promise.race([initPromise, timeoutPromise]);
+        
         setIsAdMobReady(adMobService.isReady());
-        console.log('useAdMob: AdMob ready status:', adMobService.isReady());
+        console.log('useAdMob: Safe initialization complete');
       } catch (error) {
-        console.error('useAdMob: Failed to initialize:', error);
+        console.log('useAdMob: Safe initialization failed:', error);
         setIsAdMobReady(false);
+        // Continue without ads - no crash
       }
     };
 
@@ -23,25 +30,26 @@ export const useAdMob = () => {
 
   const showInterstitialAd = async () => {
     try {
-      if (isAdMobReady) {
-        console.log('useAdMob: Showing interstitial ad...');
+      if (isAdMobReady && adMobService.canShowAds()) {
+        console.log('useAdMob: Showing ad safely...');
         await adMobService.showInterstitialAd();
       } else {
-        console.log('useAdMob: AdMob not ready, skipping ad');
+        console.log('useAdMob: Ads not available, continuing normally');
       }
     } catch (error) {
-      console.error('useAdMob: Error showing interstitial ad:', error);
+      console.log('useAdMob: Ad error handled safely:', error);
+      // Never crash the app
     }
   };
 
   return {
     isAdMobReady,
     showInterstitialAd,
-    // Safe defaults for disabled features
-    showBannerAd: () => console.log('Banner ads disabled'),
-    hideBannerAd: () => console.log('Banner ads disabled'),
+    // Safe defaults that never crash
+    showBannerAd: () => console.log('Banner ads disabled for safety'),
+    hideBannerAd: () => console.log('Banner ads disabled for safety'),
     showRewardedAd: async (): Promise<boolean> => {
-      console.log('Rewarded ads disabled');
+      console.log('Rewarded ads disabled for safety');
       return false;
     }
   };

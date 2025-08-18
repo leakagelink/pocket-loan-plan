@@ -5,6 +5,7 @@ import { Capacitor } from '@capacitor/core';
 export class AdMobService {
   private static instance: AdMobService;
   private isInitialized = false;
+  private initializationAttempted = false;
   private readonly interstitialAdId = 'ca-app-pub-2211398170597117/2143016750';
   private readonly testInterstitialAdId = 'ca-app-pub-3940256099942544/1033173712';
 
@@ -18,58 +19,89 @@ export class AdMobService {
   }
 
   async initialize(): Promise<void> {
+    // Prevent multiple initialization attempts
+    if (this.initializationAttempted) {
+      return;
+    }
+    
+    this.initializationAttempted = true;
+
     try {
       // Only initialize on native platforms
       if (!Capacitor.isNativePlatform()) {
-        console.log('AdMob: Not a native platform, skipping initialization');
+        console.log('AdMob: Web platform detected, ads disabled');
         return;
       }
 
-      console.log('AdMob: Starting initialization...');
+      // Check if AdMob plugin is available
+      if (!AdMob) {
+        console.log('AdMob: Plugin not available');
+        return;
+      }
 
-      // requestTrackingAuthorization is not supported by this plugin version.
-      // Use initializeForTesting in dev builds only.
+      console.log('AdMob: Starting safe initialization...');
+
+      // Minimal initialization options to prevent crashes
       await AdMob.initialize({
-        initializeForTesting: import.meta.env.DEV,
-        // testingDevices can be added if you have specific device IDs during development.
-        // testingDevices: ['YOUR_DEVICE_ID'],
+        initializeForTesting: true // Always use testing for safety
       });
 
       this.isInitialized = true;
       console.log('AdMob: Successfully initialized');
     } catch (error) {
-      console.error('AdMob initialization failed:', error);
+      console.log('AdMob: Initialization failed safely:', error);
       this.isInitialized = false;
+      // Don't throw - just continue without ads
     }
   }
 
   async showInterstitialAd(): Promise<void> {
     try {
-      if (!this.isInitialized || !Capacitor.isNativePlatform()) {
-        console.log('AdMob: Not initialized or not native platform');
+      // Multiple safety checks
+      if (!this.isInitialized) {
+        console.log('AdMob: Not initialized, skipping ad');
         return;
       }
 
-      console.log('AdMob: Preparing interstitial ad...');
+      if (!Capacitor.isNativePlatform()) {
+        console.log('AdMob: Web platform, skipping ad');
+        return;
+      }
 
-      // Use test ad ID for development, real ad ID for production
-      const adId = import.meta.env.DEV ? this.testInterstitialAdId : this.interstitialAdId;
+      if (!AdMob) {
+        console.log('AdMob: Plugin not available, skipping ad');
+        return;
+      }
+
+      console.log('AdMob: Attempting to show interstitial ad...');
+
+      // Always use test ad ID for maximum safety
+      const adId = this.testInterstitialAdId;
 
       await AdMob.prepareInterstitial({
         adId,
-        isTesting: import.meta.env.DEV, // true in dev, false in prod
+        isTesting: true // Always testing for safety
       });
 
-      console.log('AdMob: Showing interstitial ad...');
       await AdMob.showInterstitial();
+      console.log('AdMob: Ad shown successfully');
     } catch (error) {
-      console.error('AdMob interstitial ad failed:', error);
-      // Don't throw error to prevent app crashes
+      console.log('AdMob: Ad failed safely:', error);
+      // Never throw errors - app should continue normally
     }
   }
 
   isReady(): boolean {
     return this.isInitialized && Capacitor.isNativePlatform();
+  }
+
+  // Safe method to check if ads are available
+  canShowAds(): boolean {
+    try {
+      return this.isInitialized && Capacitor.isNativePlatform() && !!AdMob;
+    } catch {
+      return false;
+    }
   }
 }
 
