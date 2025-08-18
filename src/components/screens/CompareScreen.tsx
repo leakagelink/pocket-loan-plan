@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { TrendingUp, Building, Filter, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,18 +41,11 @@ const CompareScreen = () => {
     if (loanAmount && tenure) {
       setShowResults(true);
       
-      // Safe ad showing with extra protection
-      try {
-        if (isAdMobReady) {
-          setTimeout(() => {
-            showInterstitialAd().catch(() => {
-              console.log('Compare screen ad failed safely');
-            });
-          }, 3000);
-        }
-      } catch (error) {
-        console.log('Compare ad trigger failed safely:', error);
-        // App continues normally
+      // Safe ad showing - only if ready
+      if (isAdMobReady) {
+        setTimeout(() => {
+          showInterstitialAd();
+        }, 2000);
       }
     }
   };

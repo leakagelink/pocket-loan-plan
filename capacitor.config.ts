@@ -5,14 +5,10 @@ const config: CapacitorConfig = {
   appId: 'com.smartloanadvisor.com',
   appName: 'SmartLoan Advisor',
   webDir: 'dist',
-  server: {
-    url: 'https://74caa527-f282-48c4-9652-d5960c931443.lovableproject.com?forceHideBadge=true',
-    cleartext: true
-  },
+  bundledWebRuntime: false,
   plugins: {
     AdMob: {
-      appId: 'ca-app-pub-2211398170597117~3118839468'
-      // Minimal config to prevent crashes
+      appId: 'ca-app-pub-3940256099942544~3347511713', // Google test app ID
     }
   }
 };

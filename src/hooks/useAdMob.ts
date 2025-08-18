@@ -6,22 +6,18 @@ export const useAdMob = () => {
   const [isAdMobReady, setIsAdMobReady] = useState(false);
 
   useEffect(() => {
+    // Very safe initialization with timeout
     const initializeAdMob = async () => {
       try {
-        // Safe initialization with timeout
-        const initPromise = adMobService.initialize();
         const timeoutPromise = new Promise((resolve) => 
-          setTimeout(() => resolve(null), 5000)
+          setTimeout(() => resolve(null), 3000)
         );
 
-        await Promise.race([initPromise, timeoutPromise]);
-        
+        await Promise.race([adMobService.initialize(), timeoutPromise]);
         setIsAdMobReady(adMobService.isReady());
-        console.log('useAdMob: Safe initialization complete');
       } catch (error) {
-        console.log('useAdMob: Safe initialization failed:', error);
+        console.log('useAdMob: Initialization failed safely');
         setIsAdMobReady(false);
-        // Continue without ads - no crash
       }
     };
 
@@ -30,27 +26,16 @@ export const useAdMob = () => {
 
   const showInterstitialAd = async () => {
     try {
-      if (isAdMobReady && adMobService.canShowAds()) {
-        console.log('useAdMob: Showing ad safely...');
+      if (isAdMobReady) {
         await adMobService.showInterstitialAd();
-      } else {
-        console.log('useAdMob: Ads not available, continuing normally');
       }
     } catch (error) {
-      console.log('useAdMob: Ad error handled safely:', error);
-      // Never crash the app
+      console.log('useAdMob: Ad display failed safely');
     }
   };
 
   return {
     isAdMobReady,
     showInterstitialAd,
-    // Safe defaults that never crash
-    showBannerAd: () => console.log('Banner ads disabled for safety'),
-    hideBannerAd: () => console.log('Banner ads disabled for safety'),
-    showRewardedAd: async (): Promise<boolean> => {
-      console.log('Rewarded ads disabled for safety');
-      return false;
-    }
   };
 };

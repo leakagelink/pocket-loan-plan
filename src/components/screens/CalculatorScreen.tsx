@@ -38,18 +38,11 @@ const CalculatorScreen = () => {
 
       console.log('EMI calculation completed successfully');
 
-      // Safe ad showing with extra checks
-      try {
-        if (isAdMobReady) {
-          setTimeout(() => {
-            showInterstitialAd().catch(() => {
-              console.log('Ad failed safely, continuing normally');
-            });
-          }, 2000);
-        }
-      } catch (error) {
-        console.log('Ad trigger failed safely:', error);
-        // Continue normally - never crash
+      // Very safe ad showing - only if ready and with delay
+      if (isAdMobReady) {
+        setTimeout(() => {
+          showInterstitialAd();
+        }, 1500);
       }
     }
   };

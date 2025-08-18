@@ -18,11 +18,11 @@ const Index = () => {
     // Always scroll to top when changing screens
     window.scrollTo(0, 0);
     
-    // Show interstitial ad when navigating to compare screen
+    // Safe ad showing for compare screen
     if (screen === "compare" && isAdMobReady) {
       setTimeout(() => {
         showInterstitialAd();
-      }, 500);
+      }, 800);
     }
     
     setActiveTab(screen);
