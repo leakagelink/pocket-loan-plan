@@ -26,16 +26,17 @@ export class AdMobService {
       }
 
       console.log('AdMob: Starting initialization...');
-      
+
+      // requestTrackingAuthorization is not supported by this plugin version.
+      // Use initializeForTesting in dev builds only.
       await AdMob.initialize({
-        requestTrackingAuthorization: true,
-        testingDevices: ['YOUR_DEVICE_ID'], // Add your device ID for testing
-        initializeForTesting: true,
+        initializeForTesting: import.meta.env.DEV,
+        // testingDevices can be added if you have specific device IDs during development.
+        // testingDevices: ['YOUR_DEVICE_ID'],
       });
 
       this.isInitialized = true;
       console.log('AdMob: Successfully initialized');
-      
     } catch (error) {
       console.error('AdMob initialization failed:', error);
       this.isInitialized = false;
@@ -52,16 +53,15 @@ export class AdMobService {
       console.log('AdMob: Preparing interstitial ad...');
 
       // Use test ad ID for development, real ad ID for production
-      const adId = __DEV__ ? this.testInterstitialAdId : this.interstitialAdId;
+      const adId = import.meta.env.DEV ? this.testInterstitialAdId : this.interstitialAdId;
 
       await AdMob.prepareInterstitial({
-        adId: adId,
-        isTesting: true // Set to false for production
+        adId,
+        isTesting: import.meta.env.DEV, // true in dev, false in prod
       });
 
       console.log('AdMob: Showing interstitial ad...');
       await AdMob.showInterstitial();
-      
     } catch (error) {
       console.error('AdMob interstitial ad failed:', error);
       // Don't throw error to prevent app crashes
