@@ -8,27 +8,30 @@ import CompareScreen from "@/components/screens/CompareScreen";
 import CreditScreen from "@/components/screens/CreditScreen";
 import LearnScreen from "@/components/screens/LearnScreen";
 import ComplianceModal from "@/components/ComplianceModal";
-// import { useAdMob } from "@/hooks/useAdMob"; // AdMob disabled
+import { useAdMob } from "@/hooks/useAdMob";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
-  // const { showBannerAd, showInterstitialAd, isAdMobReady } = useAdMob(); // AdMob disabled
-
-  // AdMob banner ad useEffect removed to prevent crashes
-  // useEffect(() => {
-  //   if (isAdMobReady) {
-  //     setTimeout(() => {
-  //       showBannerAd();
-  //     }, 2000);
-  //   }
-  // }, [isAdMobReady, showBannerAd]);
+  const { showInterstitialAd, isAdMobReady } = useAdMob();
 
   const handleNavigate = (screen: string) => {
-    // AdMob interstitial ad code removed to prevent crashes
-    // if (screen === "compare" && isAdMobReady) {
-    //   showInterstitialAd();
-    // }
+    // Always scroll to top when changing screens
+    window.scrollTo(0, 0);
+    
+    // Show interstitial ad when navigating to compare screen
+    if (screen === "compare" && isAdMobReady) {
+      setTimeout(() => {
+        showInterstitialAd();
+      }, 500);
+    }
+    
     setActiveTab(screen);
+  };
+
+  const handleTabChange = (tab: string) => {
+    // Always scroll to top when changing tabs
+    window.scrollTo(0, 0);
+    setActiveTab(tab);
   };
 
   const renderScreen = () => {
@@ -55,13 +58,13 @@ const Index = () => {
       {/* Header Bar */}
       <HeaderBar activeTab={activeTab} onNavigate={handleNavigate} />
       
-      {/* Main Content */}
-      <main className="pb-16 pt-0">
+      {/* Main Content with proper top padding */}
+      <main className="pb-16 pt-2">
         {renderScreen()}
       </main>
       
       {/* Bottom Navigation */}
-      <BottomNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
     </div>
   );
 };

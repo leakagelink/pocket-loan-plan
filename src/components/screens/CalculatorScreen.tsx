@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 import { PieChart as RechartsPieChart, Cell, ResponsiveContainer, Tooltip, Pie } from "recharts";
+import { useAdMob } from "@/hooks/useAdMob";
 
 const CalculatorScreen = () => {
   const [loanAmount, setLoanAmount] = useState("");
@@ -16,6 +17,8 @@ const CalculatorScreen = () => {
     totalInterest: number;
     totalAmount: number;
   } | null>(null);
+
+  const { showInterstitialAd, isAdMobReady } = useAdMob();
 
   const calculateEMI = async () => {
     const P = parseFloat(loanAmount);
@@ -34,6 +37,13 @@ const CalculatorScreen = () => {
       });
 
       console.log('EMI calculation completed successfully');
+
+      // Show interstitial ad after successful calculation
+      if (isAdMobReady) {
+        setTimeout(() => {
+          showInterstitialAd();
+        }, 2000); // Show ad 2 seconds after result
+      }
     }
   };
 
