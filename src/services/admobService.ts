@@ -7,7 +7,7 @@ const ADMOB_APP_ID = 'ca-app-pub-2211398170597117~3118839468';
 const AD_UNIT_IDS = {
   banner: 'ca-app-pub-2211398170597117/7902625805',
   interstitial: 'ca-app-pub-2211398170597117/2143016750',
-  reward: 'ca-app-pub-2211398170597117/3124925937', // Using this as reward instead of app open
+  reward: 'ca-app-pub-2211398170597117/3124925937',
 };
 
 export class AdMobService {
@@ -40,9 +40,8 @@ export class AdMobService {
       console.log('AdMob: Starting initialization with App ID:', ADMOB_APP_ID);
 
       await AdMob.initialize({
-        requestTrackingAuthorization: true,
-        testingDevices: [], // Empty array for live ads
-        initializeForTesting: false, // Set to false for live ads
+        testingDevices: [],
+        initializeForTesting: false,
       });
 
       this.isInitialized = true;
