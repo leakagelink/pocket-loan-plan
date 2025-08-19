@@ -2,7 +2,7 @@
 import { useState } from "react";
 import BottomNavigation from "@/components/BottomNavigation";
 import HeaderBar from "@/components/HeaderBar";
-import HomeScreen from "@/components/screens/HomeScreen";
+import EnhancedHomeScreen from "@/components/screens/EnhancedHomeScreen";
 import CalculatorScreen from "@/components/screens/CalculatorScreen";
 import CompareScreen from "@/components/screens/CompareScreen";
 import CreditScreen from "@/components/screens/CreditScreen";
@@ -38,7 +38,7 @@ const Index = () => {
   const renderScreen = () => {
     switch (activeTab) {
       case "home":
-        return <HomeScreen onNavigate={handleNavigate} />;
+        return <EnhancedHomeScreen onNavigate={handleNavigate} />;
       case "calculator":
         return <CalculatorScreen />;
       case "compare":
@@ -48,7 +48,7 @@ const Index = () => {
       case "learn":
         return <LearnScreen />;
       default:
-        return <HomeScreen onNavigate={handleNavigate} />;
+        return <EnhancedHomeScreen onNavigate={handleNavigate} />;
     }
   };
 
@@ -74,4 +74,3 @@ const Index = () => {
 };
 
 export default Index;
-

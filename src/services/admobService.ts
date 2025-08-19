@@ -88,13 +88,25 @@ export class AdMobService {
       console.log('AdMob: Showing banner ad...');
       await AdMob.showBanner({
         adId: AD_UNIT_IDS.banner,
-        adSize: BannerAdSize.BANNER,
+        adSize: BannerAdSize.ADAPTIVE_BANNER,
         position: BannerAdPosition.BOTTOM_CENTER,
         margin: 0,
       });
       console.log('AdMob: Banner ad shown successfully (LIVE)');
     } catch (error) {
       console.error('AdMob: Banner ad failed:', error);
+      // Fallback to regular banner if adaptive fails
+      try {
+        await AdMob.showBanner({
+          adId: AD_UNIT_IDS.banner,
+          adSize: BannerAdSize.BANNER,
+          position: BannerAdPosition.BOTTOM_CENTER,
+          margin: 0,
+        });
+        console.log('AdMob: Fallback banner ad shown successfully');
+      } catch (fallbackError) {
+        console.error('AdMob: Fallback banner also failed:', fallbackError);
+      }
     }
   }
 
