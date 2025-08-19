@@ -1,5 +1,5 @@
 
-import { AdMob } from '@capacitor-community/admob';
+import { AdMob, BannerAdSize, BannerAdPosition } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
 
 const ADMOB_APP_ID = 'ca-app-pub-2211398170597117~3118839468';
@@ -14,7 +14,6 @@ export class AdMobService {
   private static instance: AdMobService;
   private isInitialized = false;
   private canUseAds = false;
-  private hasShownAppOpenOnce = false;
 
   private constructor() {}
 
@@ -39,7 +38,6 @@ export class AdMobService {
       }
 
       await AdMob.initialize({
-        // Using live app ID configured via capacitor.config and AndroidManifest
         initializeForTesting: false,
       });
 
@@ -65,7 +63,7 @@ export class AdMobService {
 
     try {
       await AdMob.prepareInterstitial({
-        adId: AD_UNIT_IDS.interstitial, // Live interstitial ID
+        adId: AD_UNIT_IDS.interstitial,
       });
       await AdMob.showInterstitial();
       console.log('AdMob: Interstitial shown successfully (live)');
@@ -82,9 +80,9 @@ export class AdMobService {
 
     try {
       await AdMob.showBanner({
-        adId: AD_UNIT_IDS.banner, // Live banner ID
-        adSize: 'BANNER',
-        position: 'BOTTOM_CENTER',
+        adId: AD_UNIT_IDS.banner,
+        adSize: BannerAdSize.BANNER,
+        position: BannerAdPosition.BOTTOM_CENTER,
         margin: 0,
       });
       console.log('AdMob: Banner shown (live)');
@@ -102,30 +100,6 @@ export class AdMobService {
       console.log('AdMob: Hide banner failed', error);
     }
   }
-
-  async showAppOpenAd(): Promise<void> {
-    if (!this.canUseAds || !this.isInitialized || !Capacitor.isNativePlatform()) {
-      console.log('AdMob: AppOpen not available, skipping');
-      return;
-    }
-    if (this.hasShownAppOpenOnce) {
-      console.log('AdMob: AppOpen already shown once this session');
-      return;
-    }
-
-    try {
-      await AdMob.prepareAppOpenAd({
-        adId: AD_UNIT_IDS.appOpen, // Live app-open ID
-        // Optionally: isMuted: true
-      });
-      await AdMob.showAppOpenAd();
-      this.hasShownAppOpenOnce = true;
-      console.log('AdMob: AppOpen shown successfully (live)');
-    } catch (error) {
-      console.log('AdMob: AppOpen failed, continue normally', error);
-    }
-  }
 }
 
 export const adMobService = AdMobService.getInstance();
-

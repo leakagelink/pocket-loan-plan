@@ -51,22 +51,10 @@ export const useAdMob = () => {
     }
   }, []);
 
-  const showAppOpenAd = useCallback(async () => {
-    try {
-      if (adMobService.isReady()) {
-        await adMobService.showAppOpenAd();
-      }
-    } catch (error) {
-      console.log('useAdMob: AppOpen display failed safely');
-    }
-  }, []);
-
   return {
     isAdMobReady,
     showInterstitialAd,
     showBannerAd,
     hideBannerAd,
-    showAppOpenAd,
   };
 };
-
