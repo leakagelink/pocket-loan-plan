@@ -41,11 +41,19 @@ const CompareScreen = () => {
     if (loanAmount && tenure) {
       setShowResults(true);
       
-      // Safe ad showing - only if ready
+      console.log('Loan comparison completed, attempting to show interstitial ad...');
+      
+      // Show interstitial ad after comparison
       if (isAdMobReady) {
-        setTimeout(() => {
-          showInterstitialAd();
-        }, 2000);
+        setTimeout(async () => {
+          try {
+            await showInterstitialAd();
+          } catch (error) {
+            console.error('Failed to show interstitial ad:', error);
+          }
+        }, 1000);
+      } else {
+        console.log('AdMob not ready, skipping interstitial ad');
       }
     }
   };

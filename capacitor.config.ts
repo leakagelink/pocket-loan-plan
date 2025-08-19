@@ -6,13 +6,15 @@ const config: CapacitorConfig = {
   appName: 'SmartLoan Advisor',
   webDir: 'dist',
   bundledWebRuntime: false,
+  server: {
+    androidScheme: 'https'
+  },
   plugins: {
     AdMob: {
-      // Updated to your live AdMob App ID
       appId: 'ca-app-pub-2211398170597117~3118839468',
+      requestTrackingAuthorization: true
     }
   }
 };
 
 export default config;
-

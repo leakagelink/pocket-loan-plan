@@ -36,13 +36,19 @@ const CalculatorScreen = () => {
         totalAmount: Math.round(totalAmount),
       });
 
-      console.log('EMI calculation completed successfully');
+      console.log('EMI calculation completed, attempting to show interstitial ad...');
 
-      // Very safe ad showing - only if ready and with delay
+      // Show interstitial ad after successful calculation
       if (isAdMobReady) {
-        setTimeout(() => {
-          showInterstitialAd();
-        }, 1500);
+        setTimeout(async () => {
+          try {
+            await showInterstitialAd();
+          } catch (error) {
+            console.error('Failed to show interstitial ad:', error);
+          }
+        }, 500);
+      } else {
+        console.log('AdMob not ready, skipping interstitial ad');
       }
     }
   };

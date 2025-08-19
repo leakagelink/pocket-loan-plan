@@ -4,19 +4,24 @@ import { adMobService } from '@/services/admobService';
 
 export const useAdMob = () => {
   const [isAdMobReady, setIsAdMobReady] = useState(false);
+  const [isInitializing, setIsInitializing] = useState(true);
 
   useEffect(() => {
     const initializeAdMob = async () => {
       try {
-        const timeoutPromise = new Promise((resolve) =>
-          setTimeout(() => resolve(null), 3000)
-        );
-
-        await Promise.race([adMobService.initialize(), timeoutPromise]);
-        setIsAdMobReady(adMobService.isReady());
+        console.log('useAdMob: Starting AdMob initialization...');
+        setIsInitializing(true);
+        
+        await adMobService.initialize();
+        const ready = adMobService.isReady();
+        
+        setIsAdMobReady(ready);
+        console.log('useAdMob: AdMob initialization completed, ready:', ready);
       } catch (error) {
-        console.log('useAdMob: Initialization failed safely');
+        console.error('useAdMob: Initialization failed:', error);
         setIsAdMobReady(false);
+      } finally {
+        setIsInitializing(false);
       }
     };
 
@@ -25,21 +30,19 @@ export const useAdMob = () => {
 
   const showInterstitialAd = useCallback(async () => {
     try {
-      if (adMobService.isReady()) {
-        await adMobService.showInterstitialAd();
-      }
+      console.log('useAdMob: Attempting to show interstitial ad...');
+      await adMobService.showInterstitialAd();
     } catch (error) {
-      console.log('useAdMob: Interstitial display failed safely');
+      console.error('useAdMob: Interstitial display failed:', error);
     }
   }, []);
 
   const showBannerAd = useCallback(async () => {
     try {
-      if (adMobService.isReady()) {
-        await adMobService.showBannerAd();
-      }
+      console.log('useAdMob: Attempting to show banner ad...');
+      await adMobService.showBannerAd();
     } catch (error) {
-      console.log('useAdMob: Banner display failed safely');
+      console.error('useAdMob: Banner display failed:', error);
     }
   }, []);
 
@@ -47,14 +50,25 @@ export const useAdMob = () => {
     try {
       await adMobService.hideBannerAd();
     } catch (error) {
-      console.log('useAdMob: Hide banner failed safely');
+      console.error('useAdMob: Hide banner failed:', error);
+    }
+  }, []);
+
+  const showRewardedAd = useCallback(async () => {
+    try {
+      console.log('useAdMob: Attempting to show rewarded ad...');
+      await adMobService.showRewardedAd();
+    } catch (error) {
+      console.error('useAdMob: Rewarded display failed:', error);
     }
   }, []);
 
   return {
     isAdMobReady,
+    isInitializing,
     showInterstitialAd,
     showBannerAd,
     hideBannerAd,
+    showRewardedAd,
   };
 };
