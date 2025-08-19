@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BottomNavigation from "@/components/BottomNavigation";
 import HeaderBar from "@/components/HeaderBar";
 import HomeScreen from "@/components/screens/HomeScreen";
@@ -9,6 +9,7 @@ import CreditScreen from "@/components/screens/CreditScreen";
 import LearnScreen from "@/components/screens/LearnScreen";
 import ComplianceModal from "@/components/ComplianceModal";
 import { useAdMob } from "@/hooks/useAdMob";
+import BannerAd from "@/components/ads/BannerAd";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -63,6 +64,9 @@ const Index = () => {
         {renderScreen()}
       </main>
       
+      {/* Persistent banner at bottom (native only) */}
+      <BannerAd />
+
       {/* Bottom Navigation */}
       <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
     </div>
@@ -70,3 +74,4 @@ const Index = () => {
 };
 
 export default Index;
+

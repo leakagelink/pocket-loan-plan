@@ -8,9 +8,11 @@ const config: CapacitorConfig = {
   bundledWebRuntime: false,
   plugins: {
     AdMob: {
-      appId: 'ca-app-pub-3940256099942544~3347511713', // Google test app ID
+      // Updated to your live AdMob App ID
+      appId: 'ca-app-pub-2211398170597117~3118839468',
     }
   }
 };
 
 export default config;
+

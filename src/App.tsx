@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import AppOpenManager from "@/components/ads/AppOpenManager";
 
 const queryClient = new QueryClient();
 
@@ -25,9 +26,12 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <Toaster />
       <Sonner />
+      {/* App Open ad will show once when app becomes ready */}
+      <AppOpenManager />
       <AppContent />
     </QueryClientProvider>
   );
 };
 
 export default App;
+
